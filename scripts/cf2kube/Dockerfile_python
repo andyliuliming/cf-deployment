@@ -1,0 +1,12 @@
+FROM ubuntu:16.04
+USER root
+WORKDIR /var/vcap
+RUN mkdir -p /var/vcap
+COPY . /var/vcap
+ENV HOME /var/vcap/app
+ENV PORT 8080
+ENV PATH=${HOME}/.heroku/python/bin:$PATH
+ENV PYTHONHOME=${HOME}/.heroku/python
+ENV LIBRARY_PATH=${HOME}/.heroku/vendor/lib:${HOME}/.heroku/python/lib:$LIBRARY_PATH
+ENV LD_LIBRARY_PATH=${HOME}/.heroku/vendor/lib:${HOME}/.heroku/python/lib:$LD_LIBRARY_PATH
+CMD ["/bin/bash", "-c", "cd /var/vcap/app && @cmd"]

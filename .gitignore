@@ -5,3 +5,4 @@
 *.coverprofile
 *.exe
 cmd/rep/rep
+demos

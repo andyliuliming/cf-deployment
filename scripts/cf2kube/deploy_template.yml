@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: v@cid
+  namespace: vcap
+  labels:
+    app: app@cid
+spec:
+  containers:
+  - name: v@cid
+    image: @dockerimage
+    ports:
+    - containerPort: 8080
+  imagePullSecrets:
+  - name: @registrykey
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: v@cid
+  namespace: vcap
+spec:
+  ports:
+    - port: 8080
+  selector:
+    app: app@cid
+  type: LoadBalancer

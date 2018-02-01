@@ -1,0 +1,10 @@
+FROM ubuntu:16.04
+USER root
+RUN apt-get update -qq && apt-get install -y ruby
+WORKDIR /var/vcap
+RUN mkdir -p /var/vcap
+COPY . /var/vcap
+RUN chmod 777 -R /var/vcap
+ENV HOME /var/vcap/app
+ENV PORT 8080
+CMD ["/bin/bash", "-c", "cd /var/vcap/app && @cmd"]
