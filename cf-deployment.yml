@@ -1104,6 +1104,19 @@ instance_groups:
         rep:
           preloaded_rootfses:
           - cflinuxfs2:/var/vcap/packages/cflinuxfs2/rootfs.tar
+          require_tls: true
+          ca_cert: "((service_cf_internal_ca.certificate))"
+          server_cert: "((diego_rep_agent_v2.certificate))"
+          server_key: "((diego_rep_agent_v2.private_key))"
+          enable_legacy_api_endpoints: false
+          locket:
+            api_location: "locket.service.cf.internal:8891"
+          use_vcontainer: true
+          vcontainer:
+            api_location: "vcontainer.service.cf.internal:8892"
+            ca_cert: "((service_cf_internal_ca.certificate))"
+            client_cert: "((diego_vcontainer_client.certificate))"
+            client_key: "((diego_vcontainer_client.private_key))"
       containers:
         trusted_ca_certificates:
           - ((application_ca.certificate))
@@ -1113,7 +1126,15 @@ instance_groups:
         ca_cert: "((service_cf_internal_ca.certificate))"
         cert: "((diego_rep_agent_v2.certificate))"
         key: "((diego_rep_agent_v2.private_key))"
-
+  - name: vcontainer
+    release: diego
+    properties:
+      #enable_consul_service_registration: true
+      diego:
+        vcontainer:
+          ca_cert: "((service_cf_internal_ca.certificate))"
+          server_cert: "((diego_vcontainer_server.certificate))"
+          server_key: "((diego_vcontainer_server.private_key))"
   - name: cfdot
     release: diego
     properties:
@@ -1611,6 +1632,29 @@ variables:
     ca: application_ca
     common_name: instanceIdentityCA
     is_ca: true
+- name: diego_vcontainer_server
+  type: certificate
+  options:
+    ca: service_cf_internal_ca
+    common_name: vcontainer.service.cf.internal
+    extended_key_usage:
+    - server_auth
+    alternative_names:
+    - "*.vcontainer.service.cf.internal"
+    - vcontainer.service.cf.internal
+- name: diego_vcontainer_client
+  type: certificate
+  options:
+    ca: service_cf_internal_ca
+    common_name: vcontainer client
+    extended_key_usage:
+    - client_auth
+# - name: azure_tenant_id
+#   type: value
+# - name: azure_service_id
+#   type: value
+# - name: azure_service_secret
+#   type: value
 
 releases:
 - name: binary-buildpack
@@ -1646,9 +1690,9 @@ releases:
   version: "192"
   sha1: 399894e3b4f5d4ba7ea5abe4ab89190ec2d4ad56
 - name: diego
-  url: https://bosh.io/d/github.com/cloudfoundry/diego-release?v=2.6.0
-  version: 2.6.0
-  sha1: ea5cdfd404ce4ffea659d30561d64c520f9f113e
+  url: https://andliuonlinefiles.blob.core.windows.net/cf-private-releases/diego-release-vcontainer.tgz
+  version: 2.6.0+dev.1526887536
+  sha1: dac2747530d636f557d9ad34a00ff6a52ff39374
 - name: dotnet-core-buildpack
   url: https://bosh.io/d/github.com/cloudfoundry/dotnet-core-buildpack-release?v=2.0.6
   version: 2.0.6
