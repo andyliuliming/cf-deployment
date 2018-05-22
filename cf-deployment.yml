@@ -27,7 +27,7 @@ addons:
             cert: "((loggregator_tls_metron.certificate))"
             key: "((loggregator_tls_metron.private_key))"
 instance_groups:
-- name: smoke-tests
+- name: all-in-one
   lifecycle: errand
   azs:
   - z1
@@ -51,7 +51,7 @@ instance_groups:
         space: cf_smoke_tests_space
         cf_dial_timeout_in_seconds: 300
         skip_ssl_validation: true
-- name: consul
+- name: all-in-one
   azs:
   - z1
   - z2
@@ -87,7 +87,7 @@ instance_groups:
         ca_cert: "((consul_agent_ca.certificate))"
         server_cert: "((consul_server.certificate))"
         server_key: "((consul_server.private_key))"
-- name: nats
+- name: all-in-one
   azs:
   - z1
   - z2
@@ -111,7 +111,7 @@ instance_groups:
       nats:
         password: "((nats_password))"
         user: nats
-- name: adapter
+- name: all-in-one
   azs:
   - z1
   - z2
@@ -145,7 +145,7 @@ instance_groups:
             cert: "((adapter_rlp_tls.certificate))"
             key: "((adapter_rlp_tls.private_key))"
             cn: reverselogproxy
-- name: database
+- name: all-in-one
   migrated_from:
   - name: mysql
   - name: singleton-database
@@ -210,7 +210,7 @@ instance_groups:
           api_password: "((cf_mysql_proxy_api_password))"
           consul_enabled: true
           consul_service_name: "sql-db"
-- name: diego-api
+- name: all-in-one
   migrated_from:
   - name: diego-bbs
   azs:
@@ -316,7 +316,7 @@ instance_groups:
         ca_cert: "((loggregator_ca.certificate))"
         cert: "((loggregator_tls_metron.certificate))"
         key: "((loggregator_tls_metron.private_key))"
-- name: uaa
+- name: all-in-one
   azs:
   - z1
   - z2
@@ -488,7 +488,7 @@ instance_groups:
           statsd_injector:
             cert: "((loggregator_tls_statsdinjector.certificate))"
             key: "((loggregator_tls_statsdinjector.private_key))"
-- name: singleton-blobstore
+- name: all-in-one
   migrated_from:
   - name: blobstore
   azs:
@@ -538,7 +538,7 @@ instance_groups:
             component: blobstore
           uris:
           - blobstore.((system_domain))
-- name: api
+- name: all-in-one
   azs:
   - z1
   - z2
@@ -779,7 +779,7 @@ instance_groups:
             ca_cert: "((service_cf_internal_ca.certificate))"
             server_cert: "((cc_bridge_cc_uploader_server.certificate))"
             server_key: "((cc_bridge_cc_uploader_server.private_key))"
-- name: cc-worker
+- name: all-in-one
   azs:
   - z1
   - z2
@@ -820,7 +820,7 @@ instance_groups:
             secret: "((uaa_clients_cc-service-dashboards_secret))"
           cc_routing:
             secret: "((uaa_clients_cc-routing_secret))"
-- name: router
+- name: all-in-one
   azs:
   - z1
   - z2
@@ -868,7 +868,7 @@ instance_groups:
         ca_cert: "((uaa_ca.certificate))"
         ssl:
           port: 8443
-- name: tcp-router
+- name: all-in-one
   azs:
   - z1
   - z2
@@ -895,7 +895,7 @@ instance_groups:
       uaa:
         ca_cert: "((uaa_ca.certificate))"
         tls_port: 8443
-- name: scheduler
+- name: all-in-one
   azs:
   - z1
   - z2
@@ -1014,7 +1014,7 @@ instance_groups:
               cert: "((scheduler_api_tls.certificate))"
               key: "((scheduler_api_tls.private_key))"
               cn: "cloud-controller-ng.service.cf.internal"
-- name: doppler
+- name: all-in-one
   azs:
   - z1
   - z2
@@ -1050,7 +1050,7 @@ instance_groups:
           doppler:
             cert: "((loggregator_tls_doppler.certificate))"
             key: "((loggregator_tls_doppler.private_key))"
-- name: diego-cell
+- name: all-in-one
   azs:
   - z1
   - z2
@@ -1177,7 +1177,7 @@ instance_groups:
           client_key: ((silk_daemon.private_key))
   - name: cni
     release: cf-networking
-- name: log-api
+- name: all-in-one
   azs:
   - z1
   - z2
