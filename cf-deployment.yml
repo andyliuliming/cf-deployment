@@ -1690,9 +1690,9 @@ releases:
   version: "192"
   sha1: 399894e3b4f5d4ba7ea5abe4ab89190ec2d4ad56
 - name: diego
-  url: https://andliuonlinefiles.blob.core.windows.net/cf-private-releases/diego-release-vcontainer.tgz
-  version: 2.6.0+dev.1526887536
-  sha1: dac2747530d636f557d9ad34a00ff6a52ff39374
+  url: https://andliuonlinefiles.blob.core.windows.net/cf-private-releases/diego-release-vcontainer2.tgz
+  version: 2.6.0+dev.1527041819
+  sha1: f14eacddea9f1fc398d017b292e48a36e3aa5029
 - name: dotnet-core-buildpack
   url: https://bosh.io/d/github.com/cloudfoundry/dotnet-core-buildpack-release?v=2.0.6
   version: 2.0.6
